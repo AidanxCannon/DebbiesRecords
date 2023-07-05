@@ -1,10 +1,10 @@
 import subprocess
 
 # Set the path to your local Git repository
-local_git_repository = "/path/to/your/local/git/repository"
+local_git_repository = "https://github.com/AidanxCannon/DebbiesRecords"
 
 # Set the URL of your Azure App Service Git repository
-azure_git_repository = "https://<app-name>.scm.azurewebsites.net/<app-name>.git"
+azure_git_repository = "https://github.com/AidanxCannon/DebbiesRecords"
 
 # Change directory to your local Git repository
 subprocess.call(["cd", local_git_repository], shell=True)
