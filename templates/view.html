@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debbie's Dog Grooming Salon - View Information</title>
+</head>
+<body>
+    <h1>View Dog Information</h1>
+    <p>Dog ID: {{ dog_id }}</p>
+    <p>Dog Name: {{ dog_info.dog_name }}</p>
+    <p>Dog Breed: {{ dog_info.dog_breed }}</p>
+    <p>Owner's First Name: {{ dog_info.owner_first_name }}</p>
+    <p>Owner's Last Name: {{ dog_info.owner_last_name }}</p>
+    <p>Phone Number: {{ dog_info.phone_number }}</p>
+    <p>Pick-up Date: {{ dog_info.pick_up_date }}</p>
+    <p>Bath: {{ "Yes" if dog_info.bath else "No" }}</p>
+    <p>Medications: {{ "Yes" if dog_info.meds else "No" }}</p>
+    <p>Shop Food: {{ "Yes" if dog_info.shop_food else "No" }}</p>
+    <p>Spay/Neutered: {{ "Yes" if dog_info.spay_neutered else "No" }}</p>
+    <br>
+    <a href="/records">Back to Records</a>
+</body>
+</html>

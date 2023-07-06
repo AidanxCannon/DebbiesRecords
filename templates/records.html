@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debbie's Dog Grooming Salon - Records</title>
+</head>
+<body>
+    <h1>Records</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Dog ID</th>
+                <th>Dog Name</th>
+                <th>Owner's Name</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                <tr>
+                    <td>{{ record.id }}</td>
+                    <td>{{ record.dog_name }}</td>
+                    <td>{{ record.owner_first_name }} {{ record.owner_last_name }}</td>
+                    <td>{{ record.phone_number }}</td>
+                    <td><a href="/view/{{ record.id }}">View Information</a> | <a href="/edit/{{ record.id }}">Edit</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="/">Return to Home</a>
+</body>
+</html>
