@@ -16,6 +16,7 @@
     <p>Medications: {{ "Yes" if dog_info.meds else "No" }}</p>
     <p>Shop Food: {{ "Yes" if dog_info.shop_food else "No" }}</p>
     <p>Spay/Neutered: {{ "Yes" if dog_info.spay_neutered else "No" }}</p>
+    <p><strong>Notes:</strong> {{ dog_info.notes }}</p>
     <br>
     <a href="/records">Back to Records</a>
 </body>

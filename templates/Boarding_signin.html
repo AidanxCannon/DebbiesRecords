@@ -1,44 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Boarding Sign-in</title>
-</head>
-<body>
-    <h1>Boarding Sign-in</h1>
-    <form action="/boarding" method="POST">
-        <label for="dog_name">Dog Name:</label>
-        <input type="text" id="dog_name" name="dog_name" required>
-        <br>
-        <label for="dog_breed">Dog Breed:</label>
-        <input type="text" id="dog_breed" name="dog_breed" required>
-        <br>
-        <label for="owner_first_name">Owner's First Name:</label>
-        <input type="text" id="owner_first_name" name="owner_first_name" required>
-        <br>
-        <label for="owner_last_name">Owner's Last Name:</label>
-        <input type="text" id="owner_last_name" name="owner_last_name" required>
-        <br>
-        <label for="phone_number">Phone Number:</label>
-        <input type="text" id="phone_number" name="phone_number" required>
-        <br>
-        <label for="pick_up_date">Pick-up Date:</label>
-        <input type="text" id="pick_up_date" name="pick_up_date" required>
-        <br>
-        <label for="bath">Bath:</label>
-        <input type="checkbox" id="bath" name="bath">
-        <br>
-        <label for="meds">Medications:</label>
-        <input type="checkbox" id="meds" name="meds">
-        <br>
-        <label for="shop_food">Shop Food:</label>
-        <input type="checkbox" id="shop_food" name="shop_food">
-        <br>
-        <label for="spay_neutered">Spay/Neutered:</label>
-        <input type="checkbox" id="spay_neutered" name="spay_neutered">
-        <br>
-        <button type="submit">Sign In</button>
-    </form>
-    <br>
-    <a href="/">Return to Home</a>
-</body>
-</html>
+<!-- boarding_signin.html -->
+
+<h2>Boarding Sign-In</h2>
+
+<form action="/boarding" method="POST">
+  <label for="dog_name">Dog Name:</label>
+  <input type="text" id="dog_name" name="dog_name" required><br>
+
+  <label for="dog_breed">Dog Breed:</label>
+  <input type="text" id="dog_breed" name="dog_breed" required><br>
+
+  <label for="owner_first_name">Owner First Name:</label>
+  <input type="text" id="owner_first_name" name="owner_first_name" required><br>
+
+  <label for="owner_last_name">Owner Last Name:</label>
+  <input type="text" id="owner_last_name" name="owner_last_name" required><br>
+
+  <label for="phone_number">Phone Number:</label>
+  <input type="text" id="phone_number" name="phone_number" required><br>
+
+  <label for="pick_up_date">Pick Up Date:</label>
+  <input type="date" id="pick_up_date" name="pick_up_date" required><br>
+
+  <label for="bath">Bath:</label>
+  <input type="checkbox" id="bath" name="bath"><br>
+
+  <label for="meds">Meds:</label>
+  <input type="checkbox" id="meds" name="meds"><br>
+
+  <label for="shop_food">Shop Food:</label>
+  <input type="checkbox" id="shop_food" name="shop_food"><br>
+
+  <label for="spay_neutered">Spay/Neutered:</label>
+  <input type="checkbox" id="spay_neutered" name="spay_neutered"><br>
+
+  <label for="notes">Notes:</label>
+  <textarea id="notes" name="notes"></textarea><br>
+
+  <button type="submit">Sign In</button>
+</form>

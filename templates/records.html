@@ -1,33 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Debbie's Dog Grooming Salon - Records</title>
+    <title>Records</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>Records</h1>
     <table>
-        <thead>
-            <tr>
-                <th>Dog ID</th>
-                <th>Dog Name</th>
-                <th>Owner's Name</th>
-                <th>Phone Number</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for record in records %}
-                <tr>
-                    <td>{{ record.id }}</td>
-                    <td>{{ record.dog_name }}</td>
-                    <td>{{ record.owner_first_name }} {{ record.owner_last_name }}</td>
-                    <td>{{ record.phone_number }}</td>
-                    <td><a href="/view/{{ record.id }}">View Information</a> | <a href="/edit/{{ record.id }}">Edit</a></td>
-                </tr>
-            {% endfor %}
-        </tbody>
+        <tr>
+            <th>Dog Name</th>
+            <th>Dog Breed</th>
+            <th>Owner's Name</th>
+            <th>Phone Number</th>
+            <th>Drop-off Date</th>
+            <th>Pick-up Date</th>
+            <th>Bath</th>
+            <th>Medication</th>
+            <th>Shop Food</th>
+            <th>Spay/Neutered</th>
+            <th>Actions</th>
+        </tr>
+        {% for record in records %}
+        <tr>
+            <td>{{ record[1] }}</td>
+            <td>{{ record[2] }}</td>
+            <td>{{ record[3] }} {{ record[4] }}</td>
+            <td>{{ record[5] }}</td>
+            <td>{{ record[6] }}</td>
+            <td>{{ record[7] }}</td>
+            <td>{{ record[8] }}</td>
+            <td>{{ record[9] }}</td>
+            <td>{{ record[10] }}</td>
+            <td>{{ record[11] }}</td>
+            <td>
+                <a href="/view/{{ record[0] }}">View</a>
+                <a href="/edit/{{ record[0] }}">Edit</a>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
     </table>
     <br>
+    <a href="/add-entry">Add Entry</a>
     <a href="/">Return to Home</a>
 </body>
 </html>

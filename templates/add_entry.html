@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Entry</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Add Entry</h1>
+    <form action="/add-entry" method="POST">
+        <label for="dog_name">Dog Name:</label>
+        <input type="text" name="dog_name" required>
+        <br>
+        <label for="dog_breed">Dog Breed:</label>
+        <input type="text" name="dog_breed" required>
+        <br>
+        <label for="owner_first_name">Owner's First Name:</label>
+        <input type="text" name="owner_first_name" required>
+        <br>
+        <label for="owner_last_name">Owner's Last Name:</label>
+        <input type="text" name="owner_last_name" required>
+        <br>
+        <label for="phone_number">Phone Number:</label>
+        <input type="text" name="phone_number" required>
+        <br>
+        <label for="pick_up_date">Pick-up Date:</label>
+        <input type="date" name="pick_up_date" required>
+        <br>
+        <input type="checkbox" name="bath">Bath
+        <br>
+        <input type="checkbox" name="meds">Medication
+        <br>
+        <input type="checkbox" name="shop_food">Shop Food
+        <br>
+        <input type="checkbox" name="spay_neutered">Spay/Neutered
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    <a href="/">Return to Home</a>
+</body>
+</html>
