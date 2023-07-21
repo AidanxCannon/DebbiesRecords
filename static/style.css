@@ -1,0 +1,74 @@
+/* style-colorful.css */
+
+/* General Styles */
+body {
+  font-family: 'Comic Sans MS', cursive;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+  color: #ff6699;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ff6699;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+/* Records Styles */
+.record {
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.record .title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff6699;
+  margin-bottom: 10px;
+}
+
+.record .info {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+.record .description {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.record .actions {
+  margin-top: 15px;
+}
+
+.record .actions a {
+  margin-right: 10px;
+  color: #ff6699;
+}
+

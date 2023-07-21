@@ -2,15 +2,15 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-  <title>Dog Boarding Sign In</title>
+  <title>Appointment Set Up</title>
 </head>
 <body>
   <header>
-    <h1>Dog Boarding Sign In</h1>
+    <h1>Set Appoinment</h1>
   </header>
 
   <div class="container">
-    <form action="{{ url_for('boarding_signin') }}" method="POST">
+    <form action="{{ url_for('appointment_setup') }}" method="POST">
       <div class="form-group">
         <label for="dog_name">Dog Name:</label>
         <input type="text" class="form-control" id="dog_name" name="dog_name" required>
@@ -37,38 +37,8 @@
       </div>
 
       <div class="form-group">
-        <label for="pick_up_date">Pick-up Date:</label>
-        <input type="date" class="form-control" id="pick_up_date" name="pick_up_date" required>
-      </div>
-
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="bath" name="bath">
-        <label class="form-check-label" for="bath">Bath</label>
-      </div>
-
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="meds" name="meds">
-        <label class="form-check-label" for="meds">Medication</label>
-      </div>
-
-      <div class="form-group" id="med_info_group" style="display: none;">
-        <label for="med_info">Medication Information:</label>
-        <textarea class="form-control" id="med_info" name="med_info" rows="3"></textarea>
-      </div>
-
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="shop_food" name="shop_food">
-        <label class="form-check-label" for="shop_food">Shop Food/Own Food</label>
-      </div>
-
-      <div class="form-group" id="food_info_group" style="display: none;">
-        <label for="food_info">Food Information:</label>
-        <textarea class="form-control" id="food_info" name="food_info" rows="3"></textarea>
-      </div>
-
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="spay_neutered" name="spay_neutered">
-        <label class="form-check-label" for="spay_neutered">Spay/Neutered</label>
+        <label for="scheduled_date">Appointment Date:</label>
+        <input type="date" class="form-control" id="scheduled_date" name="scheduled_date" required>
       </div>
 
       <div class="form-group">
@@ -76,7 +46,7 @@
         <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
       </div>
 
-      <button type="submit" class="btn btn-primary">Sign In</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
     <button type="submit" class = "btn btn-primary"><a href="/" class="return-link">Return to Home</a></button>

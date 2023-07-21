@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Records</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Records</h1>
@@ -33,15 +33,15 @@
             <td>{{ record[10] }}</td>
             <td>{{ record[11] }}</td>
             <td>
-                <a href="/view/{{ record[0] }}">View</a>
-                <a href="/edit/{{ record[0] }}">Edit</a>
+                <button><a href="/view/{{ record[0] }}">View</a></button>
+                <button><a href="/edit/{{ record[0] }}">Edit</a></button>
                 </form>
             </td>
         </tr>
         {% endfor %}
     </table>
     <br>
-    <a href="/add-entry">Add Entry</a>
-    <a href="/">Return to Home</a>
+    <button><a href="/add-entry">Add Entry</a></button>
+    <button><a href="/">Return to Home</a></button>
 </body>
 </html>

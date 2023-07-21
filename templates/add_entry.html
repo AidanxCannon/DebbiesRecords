@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Add Entry</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Add Entry</h1>
@@ -27,14 +27,51 @@
         <br>
         <input type="checkbox" name="bath">Bath
         <br>
-        <input type="checkbox" name="meds">Medication
-        <br>
-        <input type="checkbox" name="shop_food">Shop Food
-        <br>
+        <!-- Checkbox for Meds -->
+        <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="meds" name="meds">
+        <label class="form-check-label" for="meds">Meds</label>
+        </div>
+
+        <!-- Meds Information Textbox (Hidden by default) -->
+        <div class="form-group" id="med_info_group" style="display: none;">
+        <label for="med_info">Medication Information</label>
+        <textarea class="form-control" id="med_info" name="med_info" rows="3"></textarea>
+        </div>
+
+         <!-- Checkbox for Shop Food -->
+        <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="shop_food" name="shop_food">
+        <label class="form-check-label" for="shop_food">Shop Food/Own Food</label>
+        </div>
+
+         <!-- Food Information Textbox (Hidden by default) -->
+        <div class="form-group" id="food_info_group" style="display: none;">
+        <label for="food_info">Food Information</label>
+        <textarea class="form-control" id="food_info" name="food_info" rows="3"></textarea>
+        </div>
         <input type="checkbox" name="spay_neutered">Spay/Neutered
         <br>
+        <label for="notes">Notes:</label>
+        <textarea id="notes" name="notes"></textarea><br>
+
         <input type="submit" value="Submit">
     </form>
-    <a href="/">Return to Home</a>
+    <button><a href="/">Return to Home</a></button>
 </body>
+
+<script>
+  // Script to toggle display of medication information text area based on Meds checkbox
+  document.getElementById("meds").addEventListener("change", function() {
+    var medicationInfoGroup = document.getElementById("med_info_group");
+    medicationInfoGroup.style.display = this.checked ? "block" : "none";
+  });
+
+  // Script to toggle display of food information text area based on Shop Food checkbox
+  document.getElementById("shop_food").addEventListener("change", function() {
+    var foodInfoGroup = document.getElementById("food_info_group");
+    foodInfoGroup.style.display = this.checked ? "block" : "none";
+  });
+</script>
+
 </html>

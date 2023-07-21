@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Debbie's Dog Grooming Salon - View Information</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>View Dog Information</h1>
@@ -16,7 +17,9 @@
     <p>Medications: {{ "Yes" if dog_info.meds else "No" }}</p>
     <p>Shop Food: {{ "Yes" if dog_info.shop_food else "No" }}</p>
     <p>Spay/Neutered: {{ "Yes" if dog_info.spay_neutered else "No" }}</p>
-    <p><strong>Notes:</strong> {{ dog_info.notes }}</p>
+    <p>Medication Information: {{dog_info.med_info}}</p>
+    <p>Food Information: {{dog_info.food_info}}</p>
+    <p>Notes: {{ dog_info.notes }}</p>
     <br>
     <a href="/records">Back to Records</a>
 </body>

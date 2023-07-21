@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debbie's Dog Grooming Salon - Grooming Sign In</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Grooming Sign In</h1>
+
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
+
+
+    <form action="/grooming" method="POST">
+        <label for="dog_name">Dog Name:</label>
+        <input type="text" id="dog_name" name="dog_name" required>
+        <br>
+        <label for="owner_first_name">Owner's First Name:</label>
+        <input type="text" id="owner_first_name" name="owner_first_name" required>
+        <br>
+        <label for="owner_last_name">Owner's Last Name:</label>
+        <input type="text" id="owner_last_name" name="owner_last_name" required>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    {% if options %}
+    <h2>Available Options:</h2>
+    <ul>
+        {% for option in options %}
+        <li><a href="/grooming/{{ option.id }}/checkin">{{ option.dog_name }} - {{ option.owner_first_name }} {{ option.owner_last_name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <button><a href="/">Return to Home</a></button>
+</body>
+</html>

@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Debbie's Dog Grooming Salon - Edit Dog</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Edit Dog</h1>
@@ -19,7 +20,7 @@
         <input type="text" id="owner_last_name" name="owner_last_name" value="{{ record[4] }}" required>
         <br>
         <label for="phone_number">Phone Number:</label>
-        <input type="text" id="phone_number" name="phone_number" required pattern="[0-9]{10}" value="{{ record[5] }}">
+        <input type="text" id="phone_number" name="phone_number" value="{{ record[5] }}">
         <br>
         <label for="current_drop_off_date">Current Drop-off Date:</label>
         <input type="text" id="current_drop_off_date" name="current_drop_off_date" value="{{ formatted_drop_off_date }}" readonly><br>
@@ -39,9 +40,13 @@
         <br>
         <label for="meds">Medications:</label>
         <input type="checkbox" id="meds" name="meds" {% if record[8] %}checked{% endif %}>
+        <label for="med_info">Medication Information:</label>
+        <textarea id="med_info" name="med_info">{{ record.med_info }}</textarea><br>
         <br>
-        <label for="shop_food">Shop Food:</label>
+        <label for="shop_food">Shop Food/Own Food:</label>
         <input type="checkbox" id="shop_food" name="shop_food" {% if record[9] %}checked{% endif %}>
+        <label for="food_info">Food Information</label>
+        <textarea id="food_info" name="food_info">{{ record.food_info }}</textarea><br>
         <br>
         <label for="spay_neutered">Spay/Neutered:</label>
         <input type="checkbox" id="spay_neutered" name="spay_neutered" {% if record[10] %}checked{% endif %}>
@@ -50,7 +55,11 @@
         <textarea id="notes" name="notes">{{ record.notes }}</textarea><br>
         <button type="submit">Save Changes</button>
     </form>
+    <!-- Delete Form -->
+    <form action="/delete/{{ record[0] }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this record?');">
+        <button type="submit">Delete</button>
+    </form>
     <br>
-    <a href="/records">Cancel</a>
+    <button type="submit" class = "btn btn-primary"><a href="/records">Cancel</a></button>
 </body>
 </html>

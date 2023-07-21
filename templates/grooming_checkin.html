@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debbie's Dog Grooming Salon - Grooming Check-In</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Grooming Check-In</h1>
+    <p>Dog Name: {{ entry.dog_name }}</p>
+    <p>Dog Breed: {{ entry.dog_breed }}</p>
+    <p>Owner's First Name: {{ entry.owner_first_name }}</p>
+    <p>Owner's Last Name: {{ entry.owner_last_name }}</p>
+
+    <!-- Add any additional form fields or information specific to grooming check-in here -->
+
+    <form action="/grooming/{{ entry.id }}/checkin" method="POST">
+        <input type="hidden" name="entry_id" value="{{ entry.id }}">
+        <!-- Add any additional form fields or buttons related to grooming check-in here -->
+        <button type="submit">Check-In</button>
+    </form>
+
+    <br>
+    <a href="/grooming">Back to Grooming Sign-In</a>
+</body>
+</html>
