@@ -5,9 +5,9 @@ import pyodbc
 
 app = Flask(__name__)
 
-# Database connection details
-server = 'debbiesdbserver.database.windows.net'
-database = 'debbiesdb'
+# Database connection details      
+server = 'debbiesdoggroomingsalon.database.windows.net'
+database = 'debbiesrecords'
 username = 'aidanxcannon'
 password = 'Unbroken556%'
 driver = '{SQL Server}'
@@ -35,8 +35,7 @@ table_exists = cursor.fetchone() is not None
 if not table_exists:
     cursor.execute("CREATE TABLE dog_grooming (id INT IDENTITY(1,1) PRIMARY KEY, dog_name NVARCHAR(255),"
                    " dog_breed NVARCHAR(255), owner_first_name NVARCHAR(255), owner_last_name NVARCHAR(255), "
-                   "phone_number NVARCHAR(20), drop_off_date DATETIME, "
-                   "notes NVARCHAR(MAX)), arrived BIT")
+                   "phone_number NVARCHAR(20), scheduled_date DATETIME, notes NVARCHAR(MAX), arrived BIT)")
     connection.commit()
 
 # Home route
@@ -49,15 +48,44 @@ def home():
 def employee_page():
     return render_template('employee_page.html')
 
+@app.route('/set_appointment', methods=['GET','POST'])
+def set_appointment():
+    if request.method == 'POST':
+        # Fetch the appointment information from the form
+        dog_name = request.form['dog_name']
+        dog_breed = request.form['dog_breed']
+        owner_first_name = request.form['owner_first_name']
+        owner_last_name = request.form['owner_last_name']
+        phone_number = request.form['phone_number']
+        scheduled_date = request.form['scheduled_date']
+        notes = request.form['notes']
+
+        # Convert the scheduled_date to a datetime object
+        scheduled_datetime = datetime.strptime(scheduled_date, '%Y-%m-%d')
+
+        # Insert the appointment data into the dog_grooming table
+        cursor.execute(
+            "INSERT INTO dog_grooming (dog_name, dog_breed, owner_first_name, owner_last_name, phone_number, scheduled_date, notes, arrived) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            (dog_name, dog_breed, owner_first_name, owner_last_name, phone_number, scheduled_datetime, notes, 0))
+        connection.commit()
+
+
+
+        # Redirect to the calendar page
+        return redirect('/calendar')
+
+    return render_template('appointment_form.html')
+
+@app.route('/calendar')
+def calendar():
+    return render_template('calendar.html')
+
 # Thank you route
 @app.route('/thankyou')
 def thankyou():
     return render_template('thankyou.html')
 
-# Appointment set route
-@app.route('/appointment_set')
-def appointment_set():
-    return render_template('appointment_set.html')
 
 # Checked in route
 @app.route('/check_in')
@@ -97,35 +125,6 @@ def boarding_signin():
         return redirect('/thankyou')
 
     return render_template('boarding_signin.html')
-
-@app.route('/appointment_setup', methods=['Get','Post'])
-def appointment_setup():
-    if request.method == 'POST':
-        #Fetch the dog information from the form
-        dog_name = request.form['dog_name']
-        dog_breed = request.form['dog_breed']
-        owner_first_name = request.form['owner_first_name']
-        owner_last_name = request.form['owner_last_name']
-        phone_number = request.form['phone_number']
-        scheduled_date = request.form['scheduled_date']
-        notes = request.form['notes']
-
-        #Set arrived value to 0 to indicate not arrived
-
-        arrived = '0'
-
-
-        # Insert the dog boarding record into the database
-        cursor.execute(
-            "INSERT INTO dog_grooming (dog_name, dog_breed, owner_first_name, owner_last_name, phone_number, scheduled_date, notes, arrived) "
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-            (dog_name, dog_breed, owner_first_name, owner_last_name, phone_number, scheduled_date, notes, arrived))
-        connection.commit()
-
-        # Redirect to the set page
-        return redirect('/appointment_set')
-
-    return render_template('appointment_setup.html')
 
 @app.route('/grooming', methods=['GET', 'POST'])
 def grooming_signin():
@@ -171,9 +170,6 @@ def grooming_checkin(entry_id):
         return redirect('/check_in')
 
     return render_template('grooming_checkin.html', entry=entry)
-
-
-
 
 
 def format_datetime(value, format='%B %dth, %Y'):
@@ -342,29 +338,6 @@ def edit_dog(dog_id):
 
         # Pass the formatted drop_off_date and formatted_pick_up_date to the template
         return render_template('edit.html', record=record, formatted_drop_off_date=formatted_drop_off_date, formatted_pick_up_date=formatted_pick_up_date)
-
-@app.route('/add', methods=['POST'])
-def add_dog():
-    if request.method == 'POST':
-        # Fetch the form data
-        dog_name = request.form['dog_name']
-        dog_breed = request.form['dog_breed']
-        owner_first_name = request.form['owner_first_name']
-        owner_last_name = request.form['owner_last_name']
-        phone_number = request.form['phone_number']
-        pick_up_date = request.form['pick_up_date']
-        bath = 'bath' in request.form
-        meds = 'meds' in request.form
-        shop_food = 'shop_food' in request.form
-        spay_neutered = 'spay_neutered' in request.form
-
-        # Insert the dog record into the database
-        cursor.execute("INSERT INTO dog_boarding (dog_name, dog_breed, owner_first_name, owner_last_name, phone_number, pick_up_date, bath, meds, shop_food, spay_neutered) "
-                       "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                       (dog_name, dog_breed, owner_first_name, owner_last_name, phone_number, pick_up_date, bath, meds, shop_food, spay_neutered))
-        connection.commit()
-
-        return redirect('/records')
 
 # Delete dog route
 @app.route('/delete/<dog_id>', methods=['POST'])

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mobiscroll.min.css') }}">
+    <script src="{{ url_for('static', filename='mobiscroll.min.js') }}"></script>
+</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <!-- Add Mobiscroll CSS -->
+    <link rel="stylesheet" href="https://cdn.mobiscroll.com/5.0.1/css/mobiscroll.min.css">
+</head>
+<body>
+    <h1>Calendar</h1>
+    <!-- Add the calendar container -->
+    <div id="demo-mobile-day-view"></div>
+
+    <!-- Add Mobiscroll JS and initialize the calendar -->
+    <script src="https://cdn.mobiscroll.com/5.0.1/js/mobiscroll.min.js"></script>
+    <script>
+        var inst = mobiscroll.eventcalendar('#demo-mobile-day-view', {
+            theme: 'ios',
+            themeVariant: 'light',
+            clickToCreate: true,
+            dragToCreate: true,
+            dragToMove: true,
+            dragToResize: true,
+            eventDelete: true,
+            view: {
+                schedule: { type: 'day' }
+            }
+        });
+
+        // Function to fetch events from the /calendar route using AJAX
+        function fetchEventsAndUpdateCalendar() {
+            fetch('/calendar') // Assuming this route returns JSON data containing the appointments
+                .then(response => response.json())
+                .then(data => {
+                    // Update the calendar with the fetched events
+                    inst.setEvents(data);
+                })
+                .catch(error => console.error('Error fetching events:', error));
+        }
+
+        // Call the function to fetch events and update the calendar initially
+        fetchEventsAndUpdateCalendar();
+    </script>
+</body>
+</html>
