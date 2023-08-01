@@ -10,7 +10,7 @@ server = 'debbiesdoggroomingsalon.database.windows.net'
 database = 'debbiesrecords'
 username = 'aidanxcannon'
 password = 'Unbroken556%'
-driver = '{SQL Server}'
+driver = '{ODBC Driver 18 for SQL Server}'
 
 # Establish a connection to the database
 connection_string = f"DRIVER={driver};SERVER={server};DATABASE={database};UID={username};PWD={password}"
