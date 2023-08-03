@@ -3,7 +3,7 @@ from datetime import datetime
 import re
 import pyodbc
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 # Database connection details      
 server = 'debbiesdoggroomingsalon.database.windows.net'
