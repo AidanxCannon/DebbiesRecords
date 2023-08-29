@@ -5,177 +5,201 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <!-- Add Bootstrap CSS -->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
     <style>
-        #addEventButton {
+        #addEventButton, #homeButton {
             position: fixed;
             top: 15px;
-            right: 225px; /* Adjust this value based on the padding */
             z-index: 1000;
             padding: 0;
             margin: 0;
+        }
+
+        #addEventButton {
+            right: 225px;
         }
 
         #homeButton {
-            position: fixed;
-            top: 15px;
-            right: 265px;  /* Adjust as per the width of the add entry button and desired spacing */
-            z-index: 1000;
-            padding: 0;
-            margin: 0;
+            right: 265px;
         }
-
 
         body.modal-open {
             padding-right: 0 !important;
         }
 
         #calendar {
-            height: 100vh;  /* Adjust this based on the desired height */
-            overflow-y: auto;
-
-        body {
             height: 100vh;
-            overflow: hidden;
+            overflow-y: auto;
         }
-        html {
-            overflow: hidden;
-        }
-
-        /* Example for smaller screens like phones */
-        @media (max-width: 576px) {
-            #calendar {
-                height: 75vh;  /* Adjust as needed */
-                }
-        }
-}
-
     </style>
-
-
-
 </head>
 <body>
-
     <div id='calendar'></div>
-    <!-- Button for adding new event -->
 
-    <button type="button" class="btn btn-secondary" id="addEventButton">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus-fill" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z"/>
-        </svg>
-    </button>
+    <button type="button" class="btn btn-secondary" id="addEventButton">Add Event</button>
+    <button type="button" class="btn btn-secondary" id="homeButton">Home</button>
 
-    <button type="button" class="btn btn-secondary" id="homeButton">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
-        </svg>
-    </button>
-
-    <!-- Modal for adding new event -->
-    <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="newAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="newAppointmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addEventModalLabel">Add New Event</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="newAppointmentModalLabel">New Appointment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                    <form id="eventForm">
-                        <div class="mb-3">
-                            <label for="eventTitle" class="form-label">Event Title:</label>
-                            <input type="text" class="form-control" id="eventTitle" required>
+                    <form id="newAppointmentForm" method="POST" action="/add_appointment">
+                        <div class="form-group">
+                            <label for="dog_name">Dog Name</label>
+                            <input type="text" class="form-control" id="dog_name" name="dog_name" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="eventDate" class="form-label">Event Date:</label>
-                            <input type="date" class="form-control" id="eventDate" required>
+                        <div class="form-group">
+                            <label for="dog_breed">Dog Breed</label>
+                            <input type="text" class="form-control" id="dog_breed" name="dog_breed" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="eventTime" class="form-label">Event Time:</label>
-                            <input type="time" class="form-control" id="eventTime" required>
+                        <div class="form-group">
+                            <label for="owner_first_name">Owner First Name</label>
+                            <input type="text" class="form-control" id="owner_first_name" name="owner_first_name" required>
                         </div>
+                        <div class="form-group">
+                            <label for="owner_last_name">Owner Last Name</label>
+                            <input type="text" class="form-control" id="owner_last_name" name="owner_last_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone_number">Phone Number</label>
+                            <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="scheduled_date">Scheduled Date</label>
+                            <input type="date" class="form-control" id="scheduled_date" name="scheduled_date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ap_time">Appointment Time</label>
+                            <input type="time" class="form-control" id="ap_time" name="ap_time" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">Notes</label>
+                            <textarea class="form-control" id="notes" name="notes"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="saveEventBtn">Add</button>
                 </div>
             </div>
         </div>
     </div>
 
-
-
-    <!-- Add jQuery and Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <!-- Add FullCalendar and Moment.js from CDN -->
-     <script src="{{ url_for('static', filename='moment/moment.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='fullcalendar/index.global.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='fullcalendar/daygrid.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='fullcalendar/timegrid.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='fullcalendar/interaction.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
-    <!-- Your custom script -->
+    <!-- FullCalendar main CSS -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.css' rel='stylesheet' />
+
+    <!-- FullCalendar main JS -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.min.js'></script>
+
+
+
     <script>
+       document.getElementById("homeButton").addEventListener("click", function() {
+    window.location.href = "/employee_page";
+});
 
-        document.getElementById("homeButton").addEventListener("click", function(){
-            window.location.href = "/employee_page";  // Redirects to the root directory. Adjust the URL if needed.
+    document.addEventListener('DOMContentLoaded', function() {
+        let calendarEl = document.getElementById('calendar');
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',  // set week view to default
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            views: {
+                timeGridWeek: {
+                    hiddenDays: [0]
+                }
+            },
+            allDaySlot: false,
+            nowIndicator: true,
+            slotDuration: '00:15:00', //set the size of the block
+            slotMinTime: '07:00:00', //set start time
+            slotMaxTime: '20:00:00', //set end time
+            editable: true,
+            selectable: true,
+            events: {
+                url: '/api/fetch_appointments',
+                failure: function() {
+                    alert('There was an error while fetching appointments.');
+                }
+            },
+            eventClick: function(info) {
+                alert('Event: ' + info.event.title);
+            },
+            dateClick: function(info) {  // changed from select
+                alert('Selected ' + info.dateStr);
+            }
         });
 
-        $(document).ready(function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'timeGridWeek',
-                slotDuration: '00:15:00', // Each slot is 15 minutes
-                slotLabelInterval: '00:30:00', // Label every 30 minutes
-                slotMinTime: '07:00:00', // Start time
-                slotMaxTime: '18:00:00', // End time
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
-                editable: true,
-                selectable: true,
-                select: function(info) {
-                    $('#addEventModal').modal('show');
-                    selectedDateRange = info;
-                },
-                events: [
-                    // Your existing events data goes here
-                ]
-            });
-
         calendar.render();
+    });
 
-        // Handle the "Add Event" button click
-            $('#addEventButton').on('click', function() {
-                $('#addEventModal').modal('show');
-            });
 
-        // Handle the "Add" button click in the modal
-            $('#saveEventBtn').on('click', function() {
-                var eventTitle = $('#eventTitle').val();
-                var eventDate = $('#eventDate').val();
-                var eventTime = $('#eventTime').val();
-                var eventDateTime = eventDate + 'T' + eventTime;
 
-                var eventData = {
-                    title: eventTitle,
-                    start: eventDateTime
-                };
+$('#addEventButton').on('click', function() {
+    $('#newAppointmentModal').modal('show');
+});
 
-                calendar.addEvent(eventData);
-                $('#addEventModal').modal('hide');
-                calendar.unselect();
-            });
-        })
+$('#newAppointmentModal form').on('submit', function(event) {
+    event.preventDefault();
+
+     // Disable the submit button to prevent multiple submissions
+    $("#submitButton").prop("disabled", true);
+
+    var formData = {
+        dog_name: $('#dog_name').val(),
+        dog_breed: $('#dog_breed').val(),
+        owner_first_name: $('#owner_first_name').val(),
+        owner_last_name: $('#owner_last_name').val(),
+        phone_number: $('#phone_number').val(),
+        scheduled_date: $('#scheduled_date').val(),
+        ap_time: $('#ap_time').val(),
+        notes: $('#notes').val()
+    };
+
+    console.log('Form Data:', formData);
+
+    $.ajax({
+        type: "POST",
+        url: "/add_appointment",
+        data: $(this).serialize(),
+        success: function(response) {
+            if (response.success) {
+                // Close the modal
+                $("#appointmentModal").modal("hide");
+
+                // Refresh the calendar to show the new appointment
+                calendar.refetchEvents();
+
+                // Clear the form fields
+                $("#appointmentForm")[0].reset();
+            } else {
+                alert("Error adding appointment. Please try again.");
+            }
+        },
+        error: function() {
+            alert("There was an error processing your request. Please try again.");
+        },
+        complete: function() {
+            // Re-enable the submit button
+            $("#submitButton").prop("disabled", false);
+        }
+    });
+});
+
+
     </script>
 </body>
 </html>
